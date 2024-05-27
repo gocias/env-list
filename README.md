@@ -37,22 +37,26 @@ func main() {
 		return
 	}
 	var ose el.EnvList = os.Environ()
-	fmt.Println("=== PrintItems ============================================")
-	ose.PrintItems()
-	fmt.Println("=== get VarPrefix 'CONF' ==================================")
-	ose.VarPrefix("CONF").PrintItems()
+	fmt.Println("=== Print =================================================")
+	ose.Print()
+	fmt.Println("=== get VarWithPrefix 'CONF' ==============================")
+	ose.VarWithPrefix("CONF").Print()
 	fmt.Println("=== get VarContains 'ICE' =================================")
-	ose.VarContains("ICE").PrintItems()
+	ose.VarContains("ICE").Print()
 	fmt.Println("=== get VarKeyContains 'SESS' =============================")
-	ose.VarKeyContains("SESS").PrintItems()
+	ose.VarKeyContains("SESS").Print()
 	fmt.Println("=== get VarValueContains '=' ==============================")
-	ose.VarValueContains("=").PrintItems()
+	ose.VarValueContains("=").Print()
+	fmt.Println("=== sort ASC for VarWithPrefix 'CONF' =====================")
+	ose.VarWithPrefix("CONF").SortAsc().Print()
+	fmt.Println("=== sort DESC for VarWithPrefix 'CONF' ====================")
+	ose.VarWithPrefix("CONF").SortDesc().Print()
 }
 ```
 
 ## Result
 ```
-=== PrintItems ============================================
+=== Print =================================================
 LOGNAME=someuser
 GOPATH=/home/someuser/go
 ... a lot of lines ...
@@ -66,7 +70,7 @@ CONF_HOST=example
 CONF_DOMAIN=com
 CONF_LAST=conf_last
 
-=== get VarPrefix 'CONF' ==================================
+=== get VarWithPrefix 'CONF' ==============================
 CONF_FIRST=conf_first
 CONF_PROTOCOL=http
 CONF_HOST=example
@@ -91,4 +95,18 @@ XDG_SESSION_TYPE=wayland
 XMODIFIERS=@im=ibus
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 MEMORY_PRESSURE_WRITE=c29tZSAySomeThingDAwMAA=
+
+=== sort ASC for VarWithPrefix 'CONF' =====================
+CONF_DOMAIN=com
+CONF_FIRST=conf_first
+CONF_HOST=example
+CONF_LAST=conf_last
+CONF_PROTOCOL=http
+
+=== sort DESC for VarWithPrefix 'CONF' ====================
+CONF_PROTOCOL=http
+CONF_LAST=conf_last
+CONF_HOST=example
+CONF_FIRST=conf_first
+CONF_DOMAIN=com
 ```
